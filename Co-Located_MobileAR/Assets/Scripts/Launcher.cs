@@ -45,7 +45,7 @@ namespace CoLocated_MobileAR
         /// </summary>
         void Start()
         {
-            Connect();
+            //Connect(); //doing this on QRScan now
         }
 
         #endregion
