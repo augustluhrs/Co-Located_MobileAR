@@ -593,3 +593,129 @@ Received Import Request.
 Start importing Assets/Resources/ClientPrefab.prefab using Guid(382b0306863164ae69f53d168117a1fd) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '06309e94d88cf40b3c1ed1c2d43b56f6') in 0.012815 seconds 
   Import took 0.017364 seconds .
 
+========================================================================
+Received Import Request.
+  Time since last request: 6631.366046 seconds.
+  path: Assets/Photon/PhotonUnityNetworking/Demos/PhotonUnityNetworking.Demos.asmdef
+  artifactKey: Guid(35cc2632df2760540bcc67312740008b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Photon/PhotonUnityNetworking/Demos/PhotonUnityNetworking.Demos.asmdef using Guid(35cc2632df2760540bcc67312740008b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'c39c90c9a45edae63be0e1cccf032d39') in 0.351240 seconds 
+  Import took 0.508102 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 412.857867 seconds.
+  path: Assets/Scripts/NetworkPosition.cs
+  artifactKey: Guid(5279104407729453dbecb1b24dbe70bc) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/NetworkPosition.cs using Guid(5279104407729453dbecb1b24dbe70bc) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'fd8004ac41f55256644510925c6009c0') in 0.023637 seconds 
+  Import took 0.027967 seconds .
+
+========================================================================
+Received Prepare
+Registering precompiled user dll's ...
+Registered in 0.010944 seconds.
+Begin MonoManager ReloadAssembly
+Native extension for Lumin target not found
+Native extension for OSXStandalone target not found
+Refreshing native plugins compatible for Editor in 0.65 ms, found 2 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Mono: successfully reloaded assembly
+- Completed reload, in  3.527 seconds
+Platform modules already initialized, skipping
+Refreshing native plugins compatible for Editor in 1.20 ms, found 2 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 1986 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 188.3 MB.
+System memory in use after: 188.4 MB.
+
+Unloading 22 unused Assets to reduce memory usage. Loaded Objects now: 2500.
+Total: 4.588590 ms (FindLiveObjects: 0.509889 ms CreateObjectMapping: 0.217398 ms MarkObjects: 3.735160 ms  DeleteObjects: 0.124280 ms)
+
+AssetImportParameters requested are different than current active one (requested -> active):
+  custom:video-decoder-ogg-theora: a1e56fd34408186e4bbccfd4996cb3dc -> 
+  custom:container-muxer-webm: aa71ff27fc2769a1b78a27578f13a17b -> 
+  custom:container-demuxer-webm: 4f35f7cbe854078d1ac9338744f61a02 -> 
+  custom:container-demuxer-ogg: 62fdf1f143b41e24485cea50d1cbac27 -> 
+  custom:video-encoder-webm-vp8: eb34c28f22e8b96e1ab97ce403110664 -> 
+  custom:framework-osx-AVFoundation: e770b220cccbd017edd2c1fefb359320 -> 
+  custom:video-decoder-webm-vp8: 9c59270c3fd7afecdb556c50c9e8de78 -> 
+  custom:audio-decoder-ogg-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+  custom:audio-encoder-webm-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+========================================================================
+Received Prepare
+Registering precompiled user dll's ...
+Registered in 0.008526 seconds.
+Begin MonoManager ReloadAssembly
+Native extension for Lumin target not found
+Native extension for OSXStandalone target not found
+Refreshing native plugins compatible for Editor in 0.75 ms, found 2 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Mono: successfully reloaded assembly
+- Completed reload, in  1.501 seconds
+Platform modules already initialized, skipping
+Refreshing native plugins compatible for Editor in 0.47 ms, found 2 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 1986 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 188.7 MB.
+System memory in use after: 188.8 MB.
+
+Unloading 21 unused Assets to reduce memory usage. Loaded Objects now: 2505.
+Total: 2.656994 ms (FindLiveObjects: 0.213609 ms CreateObjectMapping: 0.144577 ms MarkObjects: 2.164545 ms  DeleteObjects: 0.133407 ms)
+
+AssetImportParameters requested are different than current active one (requested -> active):
+  custom:video-decoder-ogg-theora: a1e56fd34408186e4bbccfd4996cb3dc -> 
+  custom:container-muxer-webm: aa71ff27fc2769a1b78a27578f13a17b -> 
+  custom:container-demuxer-webm: 4f35f7cbe854078d1ac9338744f61a02 -> 
+  custom:container-demuxer-ogg: 62fdf1f143b41e24485cea50d1cbac27 -> 
+  custom:video-encoder-webm-vp8: eb34c28f22e8b96e1ab97ce403110664 -> 
+  custom:framework-osx-AVFoundation: e770b220cccbd017edd2c1fefb359320 -> 
+  custom:video-decoder-webm-vp8: 9c59270c3fd7afecdb556c50c9e8de78 -> 
+  custom:audio-decoder-ogg-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+  custom:audio-encoder-webm-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+========================================================================
+Received Import Request.
+  Time since last request: 3429.957859 seconds.
+  path: Assets/Scripts/NetworkPosition.cs
+  artifactKey: Guid(5279104407729453dbecb1b24dbe70bc) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/NetworkPosition.cs using Guid(5279104407729453dbecb1b24dbe70bc) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '88b5434c127ab5a8c561cbac4c8b3fc4') in 0.008466 seconds 
+  Import took 0.012355 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 203.752023 seconds.
+  path: Assets/Scripts
+  artifactKey: Guid(b666baed459d54f73ab70478a0668cb9) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts using Guid(b666baed459d54f73ab70478a0668cb9) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '8291e1ff3dccb925eb19dcb33ec4ce28') in 0.002508 seconds 
+  Import took 0.006830 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 10.573369 seconds.
+  path: Assets/Scripts/ReferenceImageLibrary.asset
+  artifactKey: Guid(7f57995b3c57348ae8354135af13899d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/ReferenceImageLibrary.asset using Guid(7f57995b3c57348ae8354135af13899d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '71d503c76017c727769d3cd1b037bac4') in 0.074456 seconds 
+  Import took 0.078292 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 58.737983 seconds.
+  path: Assets/Scripts/TrackedImages
+  artifactKey: Guid(e3743486739284e5d82bb0cff75d3e45) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/TrackedImages using Guid(e3743486739284e5d82bb0cff75d3e45) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '56be0b576a8832c360d36e8946f8938d') in 0.003038 seconds 
+  Import took 0.007847 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 174.516943 seconds.
+  path: Assets/Scripts/TrackedImages/qrcode.png
+  artifactKey: Guid(58b3d18e5daaa4680b254bdaa3864986) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/TrackedImages/qrcode.png using Guid(58b3d18e5daaa4680b254bdaa3864986) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '1c7a3ae567fccd16d4938c3cba79750b') in 1.267331 seconds 
+  Import took 1.273292 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 109.186241 seconds.
+  path: Assets/Scripts/TrackedImages/ReferenceImageLibrary.asset
+  artifactKey: Guid(7f57995b3c57348ae8354135af13899d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/TrackedImages/ReferenceImageLibrary.asset using Guid(7f57995b3c57348ae8354135af13899d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '6d9a213a6b179598c75ca3ab6019b502') in 0.017018 seconds 
+  Import took 0.021469 seconds .
+
