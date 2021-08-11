@@ -2,8 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
-using Photon.Realtime;
-using Hashtable = ExitGames.Client.Photon.Hashtable;
 
 namespace CoLocated_MobileAR
 {
@@ -52,18 +50,12 @@ namespace CoLocated_MobileAR
         /// </summary>
         public Quaternion anchorRot;
 
-        /// <summary>
-        /// Now setting anchor pos in called function from TrackedImageInfoManager, not running update until set
-        /// </summary>
-        //public bool receivedAnchorPos = false;
-
-
         #endregion
 
         #region IPunObservabale Callbacks
 
         /// <summary>
-        /// Creating Custom Position Sync
+        /// Creating Custom Position Sync, sending our position and rotation instead of using PhotonTransformView
         /// </summary>
         /// <param name="stream"></param>
         /// <param name="info"></param>
@@ -86,40 +78,26 @@ namespace CoLocated_MobileAR
         #region MonoBehaviour Callbacks
 
         /// <summary>
-        /// Set the anchorPos to our world space anchor pos
+        /// Set the anchorPos to our world space anchor pos, same for rotation.
         /// </summary>
         void Start()
         {
             anchorPos = (Vector3)PhotonNetwork.LocalPlayer.CustomProperties["anchorPos"];
             anchorRot = (Quaternion)PhotonNetwork.LocalPlayer.CustomProperties["anchorRot"];
 
-            Debug.LogFormat("Network Position Start \n\n AnchorPos: {0}, AnchorRot: {1}\n\n",
-                anchorPos,
-                anchorRot);
-            //Hashtable prop = new Hashtable();
-            //prop.Add("anchorPos", anchorPos);
-            //PhotonNetwork.LocalPlayer.SetCustomProperties(prop);
-            //Debug.LogFormat("Controller of this object: {0}",
-            //    photonView.Controller.UserId);
-
-            //anchorPos = (Vector3)photonView.Controller.CustomProperties["anchorPos"];
-
+            //Debug.LogFormat("Network Position Start \n\n AnchorPos: {0}, AnchorRot: {1}\n\n",
+            //    anchorPos,
+            //    anchorRot);
         }
 
         /// <summary>
         /// Here we take the anchorPos of the other client in their world space,
         /// use that to find the offset vector of their current position,
         /// then apply that vector to our anchor Pos to get their position in our world space.
+        /// Same for rotation.
         /// </summary>
         void FixedUpdate()
         {
-            //TODO: better way of doing this(ensure doesn't set prop until anchorPos is set) not in start?
-            //if (!receivedAnchorPos)
-            //{
-            //    return;
-            //}
-            //else
-
             if (!photonView.IsMine)
             {
                 offset = networkPos - (Vector3)photonView.Controller.CustomProperties["anchorPos"];
@@ -128,35 +106,26 @@ namespace CoLocated_MobileAR
                 relativeRot = Quaternion.Inverse((Quaternion)photonView.Controller.CustomProperties["anchorRot"]) * networkRot;
                 gameObject.transform.rotation = anchorRot * relativeRot;
 
+                // just a big debug log, not needed for final demo, uncomment for info.
+                /*
                 if (!firstPassDone)
                 {
                     Debug.Log("starting log timer coroutine");
                     StartCoroutine( LogTimer() );
                     firstPassDone = true;
                 }
+                */
             }
         }
 
         #endregion
 
-        #region Public Functions
-
-        //public void SetAnchorPos(Vector3 pos)
-        //{
-        //    anchorPos = pos;
-        //    Hashtable prop = new Hashtable();
-        //    prop.Add("anchorPos", anchorPos);
-        //    PhotonNetwork.LocalPlayer.SetCustomProperties(prop);
-        //    Debug.LogFormat("Owner of this object: {0}",
-        //        photonView.Owner.UserId);
-
-        //    receivedAnchorPos = true;
-        //}
-
-        #endregion
-
         #region Coroutines
 
+        /// <summary>
+        /// Just a big debug log that I didn't want to clog update with, so having it log every second.
+        /// </summary>
+        /// <returns></returns>
         IEnumerator LogTimer()
         {
             while(true)

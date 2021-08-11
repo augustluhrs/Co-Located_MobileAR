@@ -16,12 +16,11 @@ namespace UnityEngine.XR.ARFoundation.Samples
     [RequireComponent(typeof(ARTrackedImageManager))]
     public class TrackedImageInfoManager : MonoBehaviour
     {
-        //Mobile Test stuff
+        //Mobile Test stuff -- haven't yet rewritten this from the ARF sample, so formatting is different from my other scripts
         private Vector3 qrPos;
         private Quaternion qrRot;
         private Vector3 phonePos;
         public GameObject phone;
-        private Vector3 anchorPos;
         private bool hasScannedQR = false;
 
         [SerializeField]
@@ -38,28 +37,11 @@ namespace UnityEngine.XR.ARFoundation.Samples
             set { m_WorldSpaceCanvasCamera = value; }
         }
 
-        //[SerializeField]
-        //[Tooltip("If an image is detected but no source texture can be found, this texture is used instead.")]
-        //Texture2D m_DefaultTexture;
-
-        ///// <summary>
-        ///// If an image is detected but no source texture can be found,
-        ///// this texture is used instead.
-        ///// </summary>
-        //public Texture2D defaultTexture
-        //{
-        //    get { return m_DefaultTexture; }
-        //    set { m_DefaultTexture = value; }
-        //}
-
         ARTrackedImageManager m_TrackedImageManager;
 
         void Awake()
         {
             m_TrackedImageManager = GetComponent<ARTrackedImageManager>();
-
-            //check existing anchor pos on network position
-            //gameObject.transform.GetChild(0).GetChild(0)
         }
 
         void OnEnable()
@@ -74,14 +56,11 @@ namespace UnityEngine.XR.ARFoundation.Samples
 
         void UpdateInfo(ARTrackedImage trackedImage)
         {
-            // Set canvas camera
-            //var canvas = trackedImage.GetComponentInChildren<Canvas>();
-            //canvas.worldCamera = worldSpaceCanvasCamera;
-
             qrPos = trackedImage.transform.position;
             qrRot = trackedImage.transform.rotation;
             phonePos = phone.transform.position;
             //Debug.LogFormat("QRPos: {0}, PhonePos: {1}", qrPos, phonePos);
+
             if (!hasScannedQR)
             {
                 //start the Launcher.Connect() process
@@ -103,13 +82,10 @@ namespace UnityEngine.XR.ARFoundation.Samples
                     Vector3 arCamPos = gameObject.transform.GetChild(0).transform.position;
                     Quaternion arCamRot = gameObject.transform.GetChild(0).transform.rotation;
                     GameObject clientPrefab = PhotonNetwork.Instantiate("ClientPrefab", arCamPos, arCamRot);
-                    //clientPrefab.GetComponent<CoLocated_MobileAR.NetworkPosition>().anchorPos = qrPos; //make sure these components know where *our* anchor is
-                    //clientPrefab.GetComponent<CoLocated_MobileAR.NetworkPosition>().SetAnchorPos(qrPos);
 
                     if (clientPrefab.GetComponent<PhotonView>().IsMine)
                     {
                         clientPrefab.transform.parent = gameObject.transform.GetChild(0).transform;
-                        //clientPrefab.transform.parent = gameObject.GetComponent<ARSessionOrigin>().camera.transform;
                         Debug.Log("the client prefab is mine");
                     }
 
@@ -122,48 +98,12 @@ namespace UnityEngine.XR.ARFoundation.Samples
                     hasScannedQR = true;
                 }
             }
-
-
-            //// Update information about the tracked image
-            //var text = canvas.GetComponentInChildren<Text>();
-            //text.text = string.Format(
-            //    "{0}\ntrackingState: {1}\nGUID: {2}\nReference size: {3} cm\nDetected size: {4} cm\nQR Pos: {5}\nPhone Pos: {6}",
-            //    trackedImage.referenceImage.name,
-            //    trackedImage.trackingState,
-            //    trackedImage.referenceImage.guid,
-            //    trackedImage.referenceImage.size * 100f,
-            //    trackedImage.size * 100f,
-            //    qrPos,
-            //    phonePos);
-
-            //var planeParentGo = trackedImage.transform.GetChild(0).gameObject;
-            //var planeGo = planeParentGo.transform.GetChild(0).gameObject;
-
-            // Disable the visual plane if it is not being tracked
-            //if (trackedImage.trackingState != TrackingState.None)
-            //{
-            //    planeGo.SetActive(true);
-
-            //    // The image extents is only valid when the image is being tracked
-            //    trackedImage.transform.localScale = new Vector3(trackedImage.size.x, 1f, trackedImage.size.y);
-
-            //    // Set the texture
-            //    var material = planeGo.GetComponentInChildren<MeshRenderer>().material;
-            //    material.mainTexture = trackedImage.referenceImage.texture; //changed from defaultTexture
-            //}
-            //else
-            //{
-            //    planeGo.SetActive(false);
-            //}
         }
 
         void OnTrackedImagesChanged(ARTrackedImagesChangedEventArgs eventArgs)
         {
             foreach (var trackedImage in eventArgs.added)
             {
-                // Give the initial image a reasonable default scale
-                //trackedImage.transform.localScale = new Vector3(0.01f, 1f, 0.01f);
-
                 UpdateInfo(trackedImage);
             }
 

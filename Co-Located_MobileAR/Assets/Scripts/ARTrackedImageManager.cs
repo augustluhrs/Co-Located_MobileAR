@@ -223,28 +223,6 @@ namespace UnityEngine.XR.ARFoundation
         }
 
         /// <summary>
-        /// Invoked just after updating each <see cref="ARTrackedImage"/>. Used to update the <see cref="ARTrackedImage.referenceImage"/>.
-        /// </summary>
-        /// <param name="image">The tracked image being updated.</param>
-        /// <param name="sessionRelativeData">New data associated with the tracked image. Spatial data is
-        /// relative to the <see cref="ARSessionOrigin"/>.</param>
-//        protected override void OnAfterSetSessionRelativeData(
-//            ARTrackedImage image,
-//            XRTrackedImage sessionRelativeData)
-//        {
-//            if (FindReferenceImage(sessionRelativeData.sourceImageId, out XRReferenceImage referenceImage))
-//            {
-//                image.referenceImage = referenceImage;
-//            }
-//#if DEVELOPMENT_BUILD
-//            else
-//            {
-//                Debug.LogError($"Could not find reference image with guid {sessionRelativeData.sourceImageId}");
-//            }
-//#endif
-//        }
-
-        /// <summary>
         /// Invokes the <see cref="trackedImagesChanged"/> event.
         /// </summary>
         /// <param name="added">A list of images added this frame.</param>
