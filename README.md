@@ -14,6 +14,7 @@ Basic Unity Template for using ARFoundation and Photon for co-located mobile loc
 4. Setup the basic networking scripts and gameobjects (Launcher.cs and PUN_Launcher) with basic connection to random room.
 5. Setup the prefabs representing the connected clients and attach Photon View components.
 6. Create custom Network Position script component for sending relative position to QRCode via Photon View.
-7. Import the ImageTracking scripts from ARFoundation. On image found, call Launcher.Connect(), then instantiate the ClientPrefab and set the anchorPos variable of our NetworkPosition component.
+7. Import the ImageTracking scripts from ARFoundation. On image found, call Launcher.Connect(), then instantiate the ClientPrefab and set the anchorPos variable of our NetworkPosition component via a Custom Property of our Photon Player.
 8. Create the XR Reference Image Library of images to track.
-9. Update Build and Player settings
+9. Update Build and Player settings for Android and iOS.
+10. Get twisted up in a bunch of bugs and slight tweaks, go into a rabbit hole, and emerge two days later with a working project and no recollection of how you got there.

@@ -17,6 +17,11 @@ namespace CoLocated_MobileAR
         Vector3 networkPos;
 
         /// <summary>
+        /// Was having trouble getting rotation to sync with AR Camera in normal Transform View, so doing this now.
+        /// </summary>
+        Quaternion networkRot;
+
+        /// <summary>
         /// The vector between the client's anchor and their position, used to replicate their position in another world space.
         /// </summary>
         Vector3 offset;
@@ -57,10 +62,12 @@ namespace CoLocated_MobileAR
             if (stream.IsWriting)
             {
                 stream.SendNext(gameObject.transform.position);
+                //stream.SendNext(gameObject.transform.rotation);
             }
             else
             {
                 networkPos = (Vector3)stream.ReceiveNext();
+                //networkRot = (Quaternion)stream.ReceiveNext();
             }
         }
 
@@ -104,6 +111,8 @@ namespace CoLocated_MobileAR
             {
                 offset = networkPos - (Vector3)photonView.Owner.CustomProperties["anchorPos"];
                 gameObject.transform.position = anchorPos + offset;
+                //gameObject.transform.rotation = networkRot; //need to adjust this relative too
+
                 if (!firstPassDone)
                 {
                     Debug.Log("starting log timer coroutine");

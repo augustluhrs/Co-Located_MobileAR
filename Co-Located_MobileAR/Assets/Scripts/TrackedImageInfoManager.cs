@@ -93,7 +93,7 @@ namespace UnityEngine.XR.ARFoundation.Samples
                 {
                     //set my qrPos so all clients know where it is in my world space
                     Hashtable prop = new Hashtable();
-                    prop.Add("anchorPos", anchorPos);
+                    prop.Add("anchorPos", qrPos);
                     PhotonNetwork.LocalPlayer.SetCustomProperties(prop);
 
                     //set anchorPos of NetworkPosition component
@@ -106,6 +106,7 @@ namespace UnityEngine.XR.ARFoundation.Samples
                     if (clientPrefab.GetComponent<PhotonView>().IsMine)
                     {
                         clientPrefab.transform.parent = gameObject.transform.GetChild(0).transform;
+                        //clientPrefab.transform.parent = gameObject.GetComponent<ARSessionOrigin>().camera.transform;
                         Debug.Log("the client prefab is mine");
                     }
 
