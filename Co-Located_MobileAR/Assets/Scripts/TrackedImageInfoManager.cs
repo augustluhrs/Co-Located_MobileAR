@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using UnityEngine.XR.ARSubsystems;
 using UnityEngine.XR.ARFoundation;
 using Photon.Pun;
+using Hashtable = ExitGames.Client.Photon.Hashtable;
 
 namespace UnityEngine.XR.ARFoundation.Samples
 {
@@ -78,24 +79,40 @@ namespace UnityEngine.XR.ARFoundation.Samples
 
             qrPos = trackedImage.transform.position;
             phonePos = phone.transform.position;
-            Debug.LogFormat("QRPos: {0}, PhonePos: {1}", qrPos, phonePos);
+            //Debug.LogFormat("QRPos: {0}, PhonePos: {1}", qrPos, phonePos);
             if (!hasScannedQR)
             {
                 //start the Launcher.Connect() process
                 FindObjectOfType<CoLocated_MobileAR.Launcher>().Connect();
 
-                Debug.LogFormat("QRPos: {0}, PhonePos: {1}", qrPos, phonePos);
+                Debug.LogFormat("QRPos: {0}, PhonePos: {1}",
+                    qrPos,
+                    phonePos);
 
                 if (PhotonNetwork.IsConnected)
                 {
+                    //set my qrPos so all clients know where it is in my world space
+                    Hashtable prop = new Hashtable();
+                    prop.Add("anchorPos", anchorPos);
+                    PhotonNetwork.LocalPlayer.SetCustomProperties(prop);
+
                     //set anchorPos of NetworkPosition component
                     Vector3 arCamPos = gameObject.transform.GetChild(0).transform.position;
                     Quaternion arCamRot = gameObject.transform.GetChild(0).transform.rotation;
                     GameObject clientPrefab = PhotonNetwork.Instantiate("ClientPrefab", arCamPos, arCamRot);
-                    clientPrefab.transform.parent = gameObject.transform.GetChild(0).transform;
-                    clientPrefab.GetComponent<CoLocated_MobileAR.NetworkPosition>().anchorPos = qrPos;
+                    //clientPrefab.GetComponent<CoLocated_MobileAR.NetworkPosition>().anchorPos = qrPos; //make sure these components know where *our* anchor is
+                    //clientPrefab.GetComponent<CoLocated_MobileAR.NetworkPosition>().SetAnchorPos(qrPos);
 
-                    Debug.LogFormat("arCamPos: {0}, arCamRot: {1}, anchorPos: {2}", arCamPos, arCamRot, clientPrefab.GetComponent<CoLocated_MobileAR.NetworkPosition>().anchorPos);
+                    if (clientPrefab.GetComponent<PhotonView>().IsMine)
+                    {
+                        clientPrefab.transform.parent = gameObject.transform.GetChild(0).transform;
+                        Debug.Log("the client prefab is mine");
+                    }
+
+                    Debug.LogFormat("ClientPrefab Instantiated\n\n\narCamPos: {0}, arCamRot: {1}, anchorPos: {2}",
+                        arCamPos,
+                        arCamRot,
+                        clientPrefab.GetComponent<CoLocated_MobileAR.NetworkPosition>().anchorPos);
 
                     //make sure this only happens once -- TODO: make it so that if they lose tracking they can reset
                     hasScannedQR = true;
@@ -141,7 +158,7 @@ namespace UnityEngine.XR.ARFoundation.Samples
             foreach (var trackedImage in eventArgs.added)
             {
                 // Give the initial image a reasonable default scale
-                trackedImage.transform.localScale = new Vector3(0.01f, 1f, 0.01f);
+                //trackedImage.transform.localScale = new Vector3(0.01f, 1f, 0.01f);
 
                 UpdateInfo(trackedImage);
             }
