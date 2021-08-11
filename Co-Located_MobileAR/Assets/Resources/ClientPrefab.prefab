@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 6116981029510371735}
   - component: {fileID: 893740861611130639}
-  - component: {fileID: 2599138969607723125}
   - component: {fileID: 8050098984305248382}
   m_Layer: 0
   m_Name: ClientPrefab
@@ -53,27 +52,11 @@ MonoBehaviour:
   OwnershipTransfer: 0
   observableSearch: 2
   ObservedComponents:
-  - {fileID: 2599138969607723125}
+  - {fileID: 0}
   - {fileID: 8050098984305248382}
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
---- !u!114 &2599138969607723125
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2079744752475850412}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 627855c7f81362d41938ffe0b1475957, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_SynchronizePosition: 0
-  m_SynchronizeRotation: 1
-  m_SynchronizeScale: 0
-  m_UseLocal: 1
 --- !u!114 &8050098984305248382
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -87,6 +70,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   anchorPos: {x: 0, y: 0, z: 0}
+  anchorRot: {x: 0, y: 0, z: 0, w: 0}
 --- !u!1 &4189682951029670588
 GameObject:
   m_ObjectHideFlags: 0

@@ -27,6 +27,11 @@ namespace CoLocated_MobileAR
         Vector3 offset;
 
         /// <summary>
+        /// The relative rotation of the client to their own anchor rotation, used to replicate their rotation in our world space.
+        /// </summary>
+        Quaternion relativeRot;
+
+        /// <summary>
         /// a toggle just to ensure the debug timer coroutine only starts after we have variables filled out
         /// </summary>
         bool firstPassDone = false;
@@ -41,6 +46,11 @@ namespace CoLocated_MobileAR
         /// Is set on recognition of the image, before connection to ensure variable is set before we need it here.
         /// </summary>
         public Vector3 anchorPos;
+
+        /// <summary>
+        /// Have to store anchor rotation too to be able to have relative rotation of client prefab.
+        /// </summary>
+        public Quaternion anchorRot;
 
         /// <summary>
         /// Now setting anchor pos in called function from TrackedImageInfoManager, not running update until set
@@ -62,12 +72,12 @@ namespace CoLocated_MobileAR
             if (stream.IsWriting)
             {
                 stream.SendNext(gameObject.transform.position);
-                //stream.SendNext(gameObject.transform.rotation);
+                stream.SendNext(gameObject.transform.rotation);
             }
             else
             {
                 networkPos = (Vector3)stream.ReceiveNext();
-                //networkRot = (Quaternion)stream.ReceiveNext();
+                networkRot = (Quaternion)stream.ReceiveNext();
             }
         }
 
@@ -81,8 +91,11 @@ namespace CoLocated_MobileAR
         void Start()
         {
             anchorPos = (Vector3)PhotonNetwork.LocalPlayer.CustomProperties["anchorPos"];
-            Debug.LogFormat("Network Position Start \n\n AnchorPos: {0}\n\n",
-                anchorPos);
+            anchorRot = (Quaternion)PhotonNetwork.LocalPlayer.CustomProperties["anchorRot"];
+
+            Debug.LogFormat("Network Position Start \n\n AnchorPos: {0}, AnchorRot: {1}\n\n",
+                anchorPos,
+                anchorRot);
             //Hashtable prop = new Hashtable();
             //prop.Add("anchorPos", anchorPos);
             //PhotonNetwork.LocalPlayer.SetCustomProperties(prop);
@@ -109,9 +122,11 @@ namespace CoLocated_MobileAR
 
             if (!photonView.IsMine)
             {
-                offset = networkPos - (Vector3)photonView.Owner.CustomProperties["anchorPos"];
+                offset = networkPos - (Vector3)photonView.Controller.CustomProperties["anchorPos"];
                 gameObject.transform.position = anchorPos + offset;
-                //gameObject.transform.rotation = networkRot; //need to adjust this relative too
+
+                relativeRot = Quaternion.Inverse((Quaternion)photonView.Controller.CustomProperties["anchorRot"]) * networkRot;
+                gameObject.transform.rotation = anchorRot * relativeRot;
 
                 if (!firstPassDone)
                 {

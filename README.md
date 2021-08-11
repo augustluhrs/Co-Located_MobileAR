@@ -1,10 +1,17 @@
 # Co-Located_MobileAR
-Basic Unity Template for using ARFoundation and Photon for co-located mobile localization
+*Basic Unity Template for using ARFoundation and Photon for Co-Located Mobile Localization*
 
 ### Why Co-Located AR is So Tricky
 
 
-### Setup Steps For Using This Project as a Starting Template
+### Setup Steps For Deploying Demo to Devices
+1. Download / Clone Repo
+2. Open Project in Unity 2020.3
+3. Setup Photon App using the Wizard -- TODO: Instructions
+3. Build MobileQR_Test Scene to iOS or Android.
+4. Open the image located at Assets/Scripts/TrackedImages/qrcode to use as the scanned image.
+
+### Setup Steps for Using This Project as a Starting Template
 
 
 ### Setup Steps For Replicating This From Scratch

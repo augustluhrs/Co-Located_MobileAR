@@ -18,6 +18,7 @@ namespace UnityEngine.XR.ARFoundation.Samples
     {
         //Mobile Test stuff
         private Vector3 qrPos;
+        private Quaternion qrRot;
         private Vector3 phonePos;
         public GameObject phone;
         private Vector3 anchorPos;
@@ -78,6 +79,7 @@ namespace UnityEngine.XR.ARFoundation.Samples
             //canvas.worldCamera = worldSpaceCanvasCamera;
 
             qrPos = trackedImage.transform.position;
+            qrRot = trackedImage.transform.rotation;
             phonePos = phone.transform.position;
             //Debug.LogFormat("QRPos: {0}, PhonePos: {1}", qrPos, phonePos);
             if (!hasScannedQR)
@@ -94,6 +96,7 @@ namespace UnityEngine.XR.ARFoundation.Samples
                     //set my qrPos so all clients know where it is in my world space
                     Hashtable prop = new Hashtable();
                     prop.Add("anchorPos", qrPos);
+                    prop.Add("anchorRot", qrRot);
                     PhotonNetwork.LocalPlayer.SetCustomProperties(prop);
 
                     //set anchorPos of NetworkPosition component
