@@ -52,7 +52,6 @@ MonoBehaviour:
   OwnershipTransfer: 0
   observableSearch: 2
   ObservedComponents:
-  - {fileID: 0}
   - {fileID: 8050098984305248382}
   sceneViewId: 0
   InstantiationId: 0
@@ -69,6 +68,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5279104407729453dbecb1b24dbe70bc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  debugLinePrefab: {fileID: 5101157272375854336, guid: 6f534dde42720463ab8800c1654e4387, type: 3}
   anchorPos: {x: 0, y: 0, z: 0}
   anchorRot: {x: 0, y: 0, z: 0, w: 0}
 --- !u!1 &4189682951029670588

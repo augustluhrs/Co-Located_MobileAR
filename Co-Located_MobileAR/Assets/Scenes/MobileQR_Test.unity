@@ -198,6 +198,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   phone: {fileID: 1856281864}
+  clientPrefab: {fileID: 0}
   m_WorldSpaceCanvasCamera: {fileID: 1856281869}
 --- !u!1 &405389480
 GameObject:
