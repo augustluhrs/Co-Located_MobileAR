@@ -34,6 +34,12 @@ namespace CoLocated_MobileAR
         /// </summary>
         bool firstPassDone = false;
 
+        /// <summary>
+        /// Uses Line Renderer to simulate Debug.DrawLine but on mobile
+        /// </summary>
+        public GameObject debugLinePrefab;
+        GameObject debugLine;
+
         #endregion
 
         #region Public Fields
@@ -88,6 +94,19 @@ namespace CoLocated_MobileAR
             //Debug.LogFormat("Network Position Start \n\n AnchorPos: {0}, AnchorRot: {1}\n\n",
             //    anchorPos,
             //    anchorRot);
+
+            //debugging line 1) green if qr to this phone, 2) red if qr to other client
+            debugLine = Instantiate(debugLinePrefab);
+            debugLine.GetComponent<LineRenderer>().SetPositions(new Vector3[2] { anchorPos, gameObject.transform.position });
+
+            if (photonView.IsMine)
+            {
+                debugLine.GetComponent<LineRenderer>().startColor = Color.green;
+            }
+            else
+            {
+                debugLine.GetComponent<LineRenderer>().startColor = Color.red;
+            }
         }
 
         /// <summary>
@@ -98,6 +117,10 @@ namespace CoLocated_MobileAR
         /// </summary>
         void FixedUpdate()
         {
+            anchorPos = (Vector3)PhotonNetwork.LocalPlayer.CustomProperties["anchorPos"];
+            anchorRot = (Quaternion)PhotonNetwork.LocalPlayer.CustomProperties["anchorRot"];
+            debugLine.GetComponent<LineRenderer>().SetPositions(new Vector3[2] { anchorPos, gameObject.transform.position });
+
             if (!photonView.IsMine)
             {
                 offset = networkPos - (Vector3)photonView.Controller.CustomProperties["anchorPos"];

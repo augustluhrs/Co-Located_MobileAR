@@ -22,6 +22,7 @@ namespace UnityEngine.XR.ARFoundation.Samples
         private Vector3 phonePos;
         public GameObject phone;
         private bool hasScannedQR = false;
+        public GameObject clientPrefab;
 
         [SerializeField]
         [Tooltip("The camera to set on the world space UI canvas for each instantiated image info.")]
@@ -31,11 +32,11 @@ namespace UnityEngine.XR.ARFoundation.Samples
         /// The prefab has a world space UI canvas,
         /// which requires a camera to function properly.
         /// </summary>
-        public Camera worldSpaceCanvasCamera
-        {
-            get { return m_WorldSpaceCanvasCamera; }
-            set { m_WorldSpaceCanvasCamera = value; }
-        }
+        //public Camera worldSpaceCanvasCamera
+        //{
+        //    get { return m_WorldSpaceCanvasCamera; }
+        //    set { m_WorldSpaceCanvasCamera = value; }
+        //}
 
         ARTrackedImageManager m_TrackedImageManager;
 
@@ -61,16 +62,20 @@ namespace UnityEngine.XR.ARFoundation.Samples
             phonePos = phone.transform.position;
             //Debug.LogFormat("QRPos: {0}, PhonePos: {1}", qrPos, phonePos);
 
-            if (!hasScannedQR)
+            //if (!hasScannedQR)
+            if (!PhotonNetwork.IsConnected)
             {
                 //start the Launcher.Connect() process
                 FindObjectOfType<CoLocated_MobileAR.Launcher>().Connect();
 
-                Debug.LogFormat("QRPos: {0}, PhonePos: {1}",
-                    qrPos,
-                    phonePos);
-
-                if (PhotonNetwork.IsConnected)
+                //Debug.LogFormat("QRPos: {0}, PhonePos: {1}",
+                //    qrPos,
+                //    phonePos);
+            }
+            else
+            {
+                //only instantiate prefab on first scan, but relocalize on any scan
+                if (!hasScannedQR)
                 {
                     //set my qrPos so all clients know where it is in my world space
                     Hashtable prop = new Hashtable();
@@ -81,12 +86,17 @@ namespace UnityEngine.XR.ARFoundation.Samples
                     //set anchorPos of NetworkPosition component
                     Vector3 arCamPos = gameObject.transform.GetChild(0).transform.position;
                     Quaternion arCamRot = gameObject.transform.GetChild(0).transform.rotation;
-                    GameObject clientPrefab = PhotonNetwork.Instantiate("ClientPrefab", arCamPos, arCamRot);
+                    clientPrefab = PhotonNetwork.Instantiate("ClientPrefab", arCamPos, arCamRot);
+                    clientPrefab.transform.parent = gameObject.transform.GetChild(0).transform;
 
                     if (clientPrefab.GetComponent<PhotonView>().IsMine)
                     {
-                        clientPrefab.transform.parent = gameObject.transform.GetChild(0).transform;
+                        //clientPrefab.transform.parent = gameObject.transform.GetChild(0).transform;
                         Debug.Log("the client prefab is mine");
+                    }
+                    else
+                    {
+                        Debug.Log("the prefab isn't mine, why is this being called?");
                     }
 
                     Debug.LogFormat("ClientPrefab Instantiated\n\n\narCamPos: {0}, arCamRot: {1}, anchorPos: {2}",
@@ -94,9 +104,19 @@ namespace UnityEngine.XR.ARFoundation.Samples
                         arCamRot,
                         clientPrefab.GetComponent<CoLocated_MobileAR.NetworkPosition>().anchorPos);
 
-                    //make sure this only happens once -- TODO: make it so that if they lose tracking they can reset
+                    //make sure this only happens once
                     hasScannedQR = true;
                 }
+                else
+                {
+                    //update the qrPos, qrRot, and client prefab pos
+                    PhotonNetwork.LocalPlayer.CustomProperties["anchorPos"] = qrPos;
+                    PhotonNetwork.LocalPlayer.CustomProperties["anchorRot"] = qrRot;
+                    //clientPrefab.transform.position = phonePos; // same as arCamPos... won't this automatically be done from parent / conflict with network pos?
+
+                    Debug.Log("relocalizing on scan");
+                }
+
             }
         }
 
